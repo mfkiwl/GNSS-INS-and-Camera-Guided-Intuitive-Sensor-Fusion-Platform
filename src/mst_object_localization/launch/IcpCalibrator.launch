@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="mst_object_localization" type="registration_node.py" name="registration_node" output="screen">
+        <param name="first_pc2_topic" value="/parent/points_raw" />
+        <param name="second_pc2_topic" value="/child/points_raw" />
+        <param name="icp_mode" value="plane" />
+    </node>
+
+</launch>

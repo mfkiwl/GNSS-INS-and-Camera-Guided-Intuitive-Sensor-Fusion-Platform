@@ -1,0 +1,59 @@
+<launch>
+
+    <node pkg="tf" type="static_transform_publisher" name="transformation_velodyne_to_spinnaker" args=" 0.0915739 0.181519 -0.0321513 -0.854518 -0.00789269 -1.55465 velodyne cam_fm_01 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="transformation_velodyne_to_usb_camera" args=" -0.00737602 -0.0688214 -0.112707 -2.21879 -0.018808 -1.44275 velodyne usb_camera 100" />
+
+    <node pkg="mst_object_localization" type="color_cluster" name="color_cluster" output="screen">
+        <rosparam command="load" file="$(find mst_object_localization)/config/color_cluster/color_cluster.yaml" />
+    </node>
+
+    <node pkg="mst_object_localization" type="cloud_painter" name="cloud_painter_spinnaker" output="screen">
+        <rosparam command="load" file="$(find mst_object_localization)/config/cloud_painter/spinnaker.yaml" />
+    </node>
+
+    <node pkg="mst_object_localization" type="cloud_painter" name="cloud_painter_usb_camera" output="screen">
+        <rosparam command="load" file="$(find mst_object_localization)/config/cloud_painter/usb_camera.yaml" />
+    </node>
+
+    <node pkg="mst_object_localization" type="camera_depth_estimator" name="camera_depth_estimator_spinnaker" output="screen">
+        <rosparam command="load" file="$(find mst_object_localization)/config/camera_depth_estimator.yaml" />
+        <param name="projected_cloud_topic" value="/cloud_painter_spinnaker/cloud_projected" />
+        <param name="lane_cloud_topic" value="/lane2d" />
+        <param name="search_radius" value="5.0" />
+    </node>
+
+    <node pkg="mst_object_localization" type="camera_depth_estimator" name="camera_depth_estimator_usb_camera" output="screen">
+        <rosparam command="load" file="$(find mst_object_localization)/config/camera_depth_estimator.yaml" />
+        <param name="projected_cloud_topic" value="/cloud_painter_usb_camera/cloud_projected" />
+        <param name="lane_cloud_topic" value="/lane2d" />
+        <param name="search_radius" value="5.0" />
+    </node>
+
+    <node pkg="mst_object_localization" type="point_cloud_combiner" name="point_cloud_combiner_color_spinnaker" output="screen">
+        <param name="first_cloud_topic" value="/camera_depth_estimator_spinnaker/lane_3d" />
+        <param name="second_cloud_topic" value="/colored_clustered" />
+        <param name="combined_frame_id" value="velodyne" />
+    </node>
+
+    <node pkg="mst_object_localization" type="point_cloud_combiner" name="point_cloud_combiner_color_usbcam" output="screen">
+        <param name="first_cloud_topic" value="/camera_depth_estimator_usb_camera/lane_3d" />
+        <param name="second_cloud_topic" value="/colored_clustered" />
+        <param name="combined_frame_id" value="velodyne" />
+    </node>
+
+    <node pkg="mst_visualization" type="projected_cloud_viz" name="projected_cloud_viz_spinnaker">
+        <param name="image_topic" value="/spinnaker_undistorted" />
+        <param name="projected_cloud_topic" value="/camera_depth_estimator_spinnaker/lane_3d" />
+        <param name="lane_cloud_topic" value="/lane_3d" />
+        <param name="bboxes_topic" value="/darknet_republish/vision_boxes" />
+    </node>
+
+    <node pkg="mst_visualization" type="projected_cloud_viz" name="projected_cloud_viz_usb_cam">
+        <param name="image_topic" value="/usb_camera_undistorted" />
+        <param name="projected_cloud_topic" value="/camera_depth_estimator_usb_camera/lane_3d" />
+        <param name="lane_cloud_topic" value="/lane_3d" />
+        <param name="bboxes_topic" value="/darknet_republish/vision_boxes" />
+    </node>
+
+</launch>

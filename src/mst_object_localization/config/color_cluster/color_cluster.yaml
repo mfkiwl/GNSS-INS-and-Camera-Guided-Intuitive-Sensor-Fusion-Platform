@@ -1,0 +1,14 @@
+
+## IF YOU ARE RUNNING REAL TIME BAGS THEN SET THIS TO FALSE
+use_sim: true
+subscriber_topic: /points_raw
+publisher_topic: /colored_clustered
+
+region_of_interest: {"x_min": -100, "x_max": 100, "y_min": -3, "y_max": 3, "z_min": -1.6, "z_max": -0.5}
+
+bool_of_radius: true
+treshold_cloud:  0.2
+
+sim_intensity_range: {"min": 250, "max": 255}
+real_intensity_range: {"min": 80, "max": 101}
+

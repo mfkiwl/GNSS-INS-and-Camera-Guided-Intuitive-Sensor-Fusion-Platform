@@ -1,0 +1,15 @@
+<launch>
+
+        <!-- <node pkg="tf" type="static_transform_publisher" name="transformation_velodyne_to_sick" args="1 0 -0.7 0 0 0  velodyne sick 100" /> -->
+
+        <node pkg="mst_object_localization" type="ndt_calibrator" name="ndt_calibrator" output="screen">
+                <rosparam command="load" file="$(find mst_object_localization)/config/ndt_calibrator.yaml" />
+        </node>
+
+        <node pkg="mst_object_localization" type="point_cloud_combiner" name="point_cloud_combiner" output="screen">
+                <param name="first_cloud_topic" value="/parent/points_raw" />
+                <param name="second_cloud_topic" value="/ndt_calibrator/points_combined" />
+                <param name="combined_frame_id" value="velodyne" />
+        </node>
+
+</launch>

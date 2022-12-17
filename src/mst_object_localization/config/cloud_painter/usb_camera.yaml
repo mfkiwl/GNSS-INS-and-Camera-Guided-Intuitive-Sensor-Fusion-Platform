@@ -1,0 +1,28 @@
+lidar_topic: "/points_raw"
+camera_topic: "/simulator/camera_node/image/compressed"
+yolo_topic: "/darknet_ros/bounding_boxes"
+
+intrinsic_parameters:
+  [
+    383.311065,
+    0.000000,
+    308.616635,
+    0.000000,
+    381.332146,
+    232.971780,
+    0.000000,
+    0.000000,
+    1.000000,
+  ]
+#intrinsic_parameters: [300, 0.0, 200, 0.0, 300, 100, 0.0, 0.0, 1.0]
+distortion_coefficients: [-0.247564, 0.059788, -0.000330, 0.000602, 0.000000]
+
+image_width: 640
+image_height: 480
+
+roi: {"x_min": -30, "x_max": 30, "y_min": -30, "y_max": 30, "z_min": -5, "z_max": 30}
+roi_finish: {"x_min": 1.7, "x_max": 25, "y_min": -10, "y_max": 10, "z_min": -5, "z_max": 10}
+
+finish: "/finish_line"
+
+camera_frame_id: usb_camera

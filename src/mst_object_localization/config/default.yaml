@@ -1,0 +1,17 @@
+lidar_topic: "/points_raw"
+camera_topic: "/camera"
+yolo_topic: "/darknet_ros/bounding_boxes"
+
+intrinsic_parameters: [935.307464, 0.0, 960.0, 0.0, 935.307464, 540.0, 0.0, 0.0, 1.0]
+#intrinsic_parameters: [300, 0.0, 200, 0.0, 300, 100, 0.0, 0.0, 1.0]
+distortion_coefficients: []
+
+image_width: 1920
+image_height: 1080
+
+roi: {"x_min": -30, "x_max": 30, "y_min": -30, "y_max": 30, "z_min": -5, "z_max": 100}
+roi_finish: {"x_min": 1.7, "x_max": 25, "y_min": -10, "y_max": 10, "z_min": -5, "z_max": 10}
+
+finish: "/finish_line"
+
+camera_frame_id: "camera" 

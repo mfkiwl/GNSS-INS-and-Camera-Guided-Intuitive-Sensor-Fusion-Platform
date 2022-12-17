@@ -1,0 +1,8 @@
+<launch>
+
+
+    <node name="cloud_projector_vis" pkg="cloud_projector_viz_cpp_pkg" type="projected_cloud_vis_node" output="screen">
+      <rosparam command="load" file="$(find cloud_projector_viz_cpp_pkg)/config/projected_cloud_viz.yaml" />
+    </node>
+  
+  </launch>

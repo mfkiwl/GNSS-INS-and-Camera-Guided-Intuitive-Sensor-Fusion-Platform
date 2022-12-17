@@ -1,0 +1,2 @@
+projected_cloud_topic: "/cloud_projected"
+image_topic: "/undistorted_image"

@@ -12,6 +12,8 @@
 
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
+#include <yolov5_ros_msgs/BoundingBoxes.h>
+#include <yolov5_ros_msgs/BoundingBox.h>
 
 namespace mst_object_localization
 {
@@ -35,7 +37,7 @@ class CloudFilter
      * YOLO BoundingBoxes callback method.
      * @param t_yolo_boxes the received PointCloud2 message.
      */
-    void yoloTopicCallback(const darknet_ros_msgs::BoundingBoxesConstPtr& t_yolo_boxes);
+    void yoloTopicCallback(const yolov5_ros_msgs::BoundingBoxesConstPtr& t_yolo_boxes);
 
     //! ROS node handle.
     ros::NodeHandle& m_node_handle;

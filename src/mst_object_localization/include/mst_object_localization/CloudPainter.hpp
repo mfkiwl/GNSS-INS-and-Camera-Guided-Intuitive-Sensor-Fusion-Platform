@@ -18,7 +18,7 @@
 
 #include <mst_object_localization/ProjectedCloudAction.h>
 #include <mst_object_localization/ArrayOfPointCloud2s.h>
-#include <darknet_ros_msgs/BoundingBoxes.h>
+#include <yolov5_ros_msgs/BoundingBoxes.h>
 
 namespace mst_object_localization
 {
@@ -52,7 +52,7 @@ class CloudPainter
 
     /*!
      * Wait for camera to lidar transform.
-     * @param trans_velo_to_cam reference for TransformStamped message.
+     * @param trans_velo_to_cam reference for Transforaeskamped message.
      */
     bool waitForCameraLidarTransform(geometry_msgs::TransformStamped& trans_velo_to_cam);
 

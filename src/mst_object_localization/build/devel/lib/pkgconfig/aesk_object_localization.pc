@@ -1,0 +1,8 @@
+prefix=/home/sevo/mst_ws/src/mst_object_localization/build/devel
+
+Name: mst_object_localization
+Description: Description of mst_object_localization
+Version: 0.1.0
+Cflags: -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime actionlib_msgs

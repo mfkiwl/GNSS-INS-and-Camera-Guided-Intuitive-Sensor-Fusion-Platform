@@ -54,7 +54,7 @@ def ProjectedPointsCallback(clouds_input):
         unique_labels = set(labels)
         found_clusters = [[]] * len(unique_labels)
 
-        print "\n\n****************************************"
+        print ("\n\n****************************************")
         # print "Labels:"
         # print labels
 
@@ -69,8 +69,8 @@ def ProjectedPointsCallback(clouds_input):
             found_clusters[int(label)].append(points_filtered[index])
             # print "After found_clusters[int(label)]:", found_clusters[int(label)]
 
-        print "Found clusters size:"
-        print len(found_clusters)
+        print ("Found clusters size:")
+        print (len(found_clusters))
 
         position_of_clusters = [None] * len(unique_labels)
         distance_of_clusters = [None] * len(unique_labels)
@@ -89,12 +89,12 @@ def ProjectedPointsCallback(clouds_input):
             position_of_clusters[index] = (mean_x, mean_y, mean_z)
             distance_of_clusters[index] = sqrt(mean_x**2 + mean_y**2 + mean_z**2)
 
-        print "Distances:"
-        print distance_of_clusters
-        print "Positions:"
-        print position_of_clusters
-        print "Min index:"
-        print np.argmin(distance_of_clusters)
+        print ("Distances:")
+        print (distance_of_clusters)
+        print ("Positions:")
+        print (position_of_clusters)
+        print ("Min index:")
+        print (np.argmin(distance_of_clusters))
 
         # Create a marker
         marker = Marker()

@@ -1,3 +1,3 @@
 Header header
-int16 id
+string Class
 sensor_msgs/PointCloud2 cloud

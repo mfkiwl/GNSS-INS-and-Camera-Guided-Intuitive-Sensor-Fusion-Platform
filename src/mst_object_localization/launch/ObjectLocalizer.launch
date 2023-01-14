@@ -2,14 +2,26 @@
 
     <node pkg="tf" type="static_transform_publisher"
           name="transformation_velodyne_to_camera"
-          args="1.37 0.1 -0.7 -1.57 0.0 -1.57 velodyne camera 100" />
+          args="0 0.0 -0.2 -1.57 0.01 -1.57 velodyne camera 100" />
 
+
+
+    <node pkg="mst_camera_driver" type="camera_driver" name="camera_driver">
+            <rosparam command="load" file="$(find mst_camera_driver)/config/cv_camera.yaml" />
+    </node> 
+     <node name="republish_calib"
+              type="republish"
+              pkg="image_transport"
+              output="screen"
+              args="compressed in:=/simulator/camera_node/image raw out:=/camera" />
 
     <node pkg="mst_object_localization" type="cloud_painter" name="cloud_painter" output="screen" >
         <rosparam command="load" file="$(find mst_object_localization)/config/default.yaml" />
     </node>
 
-
+    <!-- <node pkg="mst_object_localization" type="cloud_painter" name="cloud_painter">
+        <rosparam command="load" file="$(find mst_object_localization)/config/default.yaml" />
+    </node> -->
 
 
     <node pkg="mst_object_localization" type="cloud_filter" name="cloud_filter">
@@ -20,12 +32,13 @@
     <!-- <node pkg="mst_object_localization" type="cloud_filter_mf" name="cloud_filter">
         <rosparam command="load" file="$(find mst_object_localization)/config/filter.yaml" />
     </node> -->
-
-
+    <!-- <node pkg="mst_object_localization" type="darknet_republish" name="darknet_republish" >
+        <rosparam command="load" file="$(find mst_object_localization)/config/default.yaml" />
+    </node> -->
     <node pkg="mst_object_localization" type="clustering_dbscan.py" name="clustering_dbscan" />
     
 
-    <node pkg="mst_object_localization" type="visualize.py" name="visualize_py">
+    <node pkg="mst_object_localization" type="visualize.py" name="visualize_py" output="screen">
         <rosparam command="load" file="$(find mst_object_localization)/config/filter.yaml" />
     </node>
 
@@ -39,15 +52,15 @@
         <rosparam command="load" file="$(find mst_object_localization)/config/park_tracker.yaml" />
     </node> -->
 
-    <node pkg="mst_object_localization" type="clustering_park.py" name="clustering_park" />
+    <!-- <node pkg="mst_object_localization" type="clustering_park.py" name="clustering_park" /> -->
 
 
 
-    <node pkg="mst_object_localization" type="lidar_tracker" name="lidar_tracker">
-        <rosparam command="load" file="$(find mst_object_localization)/config/sign_tracker.yaml" />
-    </node>
+    <!-- <node pkg="mst_object_localization" type="lidar_tracker" name="lidar_tracker">
+        <rosparam command="load" file="$(find mst_object_localization)/config/sign_tracker.yaml" /> -->
+    <!-- </node> -->
 
-    <node pkg="mst_object_localization" type="clustering_signs.py" name="clustering_signs" />
+    <!-- <node pkg="mst_object_localization" type="clustering_signs.py" name="clustering_signs" /> -->
 
     <!-- <node pkg="mst_object_localization" type="clustering_nearest.py" name="clustering_nearest" output="screen" /> -->
 

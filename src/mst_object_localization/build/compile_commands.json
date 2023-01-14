@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -Dcloud_painter_core_EXPORTS -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -fPIC -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_painter_core.dir/src/CloudPainter/CloudPainter.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/CloudPainter.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/CloudPainter.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_painter.dir/src/CloudPainter/cloud_painter_node.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/cloud_painter_node.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/cloud_painter_node.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_painter.dir/src/CloudPainter/CloudPainter.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/CloudPainter.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/CloudPainter/CloudPainter.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -Dcloud_filter_core_EXPORTS -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -fPIC -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_filter_core.dir/src/CloudFilter.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/CloudFilter.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/CloudFilter.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_filter.dir/src/cloud_filter_node.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/cloud_filter_node.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/cloud_filter_node.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"mst_object_localization\\\" -I/home/sevo/mst_ws/src/mst_object_localization/build/devel/include -I/home/sevo/mst_ws/src/mst_object_localization/include -I/home/sevo/mst_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2 -isystem /usr/include/opencv4 -g -Wall -Wextra -std=gnu++14 -o CMakeFiles/cloud_filter.dir/src/CloudFilter.cpp.o -c /home/sevo/mst_ws/src/mst_object_localization/src/CloudFilter.cpp",
+  "file": "/home/sevo/mst_ws/src/mst_object_localization/src/CloudFilter.cpp"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -g -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wall -Wextra -DGTEST_HAS_PTHREAD=1 -std=c++11 -o gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock-all.cc"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -isystem /usr/src/googletest/googlemock/include -isystem /usr/src/googletest/googlemock -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -g -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wall -Wextra -DGTEST_HAS_PTHREAD=1 -std=c++11 -o gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/src/googletest/googlemock/src/gmock_main.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock_main.cc"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wall -Wextra -std=c++11 -o gtest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest-all.cc"
+},
+{
+  "directory": "/home/sevo/mst_ws/src/mst_object_localization/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -g -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wall -Wextra -DGTEST_HAS_PTHREAD=1 -std=c++11 -o gtest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /usr/src/googletest/googletest/src/gtest_main.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest_main.cc"
+}
+]

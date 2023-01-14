@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 
 import rospy
 
@@ -6,7 +6,7 @@ import cv2
 from cv_bridge import CvBridge
 
 from sensor_msgs.msg import Image
-from darknet_ros_msgs.msg import BoundingBoxes, BoundingBox
+from yolov5_ros_msgs.msg import BoundingBoxes, BoundingBox
 from mst_object_localization.msg import PointCloud2WithId, ArrayOfPointCloud2s
 
 import sensor_msgs.point_cloud2 as pc2
@@ -19,22 +19,20 @@ import sensor_msgs.point_cloud2 as pc2
 
 def ImageCallback(image_input):
     bridge = CvBridge()
-    cv_image = bridge.imgmsg_to_cv2(image_input, desired_encoding="")
+    cv_image = bridge.imgmsg_to_cv2(image_input, desired_encoding="bgr8")
+   
 
     for cloudBox in viz.boxArray.clouds:
         # Read PointCloud2 mesasge
         points_filtered = pc2.read_points_list(cloudBox.cloud, field_names=(
             "x", "y", "z", "pX", "pY"), skip_nans=True)
-
         for point in points_filtered:
             point_x = int(round(point.pX))
             point_y = int(round(point.pY))
             cv2.circle(cv_image, (point_x, point_y), 5, (0, 0, 255), -1)
-
     for boundingBox in viz.yoloBoxes.bounding_boxes:
         cv2.rectangle(cv_image, (boundingBox.xmin, boundingBox.ymin),
                       (boundingBox.xmax, boundingBox.ymax), (255, 0, 0), 1)
-
     # # Resize image
     # scale_percent = 40  # percent of original size
     # width = int(cv_image.shape[1] * scale_percent / 100)
@@ -71,8 +69,8 @@ viz = Visualizer()
 if __name__ == "__main__":
     rospy.init_node("visualizer", anonymous=False)
 
-    rospy.Subscriber('/camera_driver/image_undistorted', Image, ImageCallback, queue_size=1)
-    rospy.Subscriber('/darknet_ros/bounding_boxes',
+    rospy.Subscriber('/camera_undistorted', Image, ImageCallback, queue_size=1)
+    rospy.Subscriber('/yolov5/BoundingBoxes',
                      BoundingBoxes, YoloCallback)
     rospy.Subscriber('/cloud_filter/filtered_clouds', ArrayOfPointCloud2s,
                      ProjectedPointsCallback)

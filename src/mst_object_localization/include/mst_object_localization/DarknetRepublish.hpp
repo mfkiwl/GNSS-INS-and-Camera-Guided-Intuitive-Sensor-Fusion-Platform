@@ -2,7 +2,7 @@
 
 #include <ros/ros.h>
 
-#include <darknet_ros_msgs/BoundingBoxes.h>
+#include <yolov5_ros_msgs/BoundingBoxes.h>
 
 namespace mst_darknet_republish
 {
@@ -20,7 +20,7 @@ class DarknetRepublish
      * ROS message filter callback method.
      * @param t_boxes the received Image message.
      */
-    void topicCallback(const darknet_ros_msgs::BoundingBoxesConstPtr& t_boxes);
+    void topicCallback(const yolov5_ros_msgs::BoundingBoxesConstPtr& t_boxes);
 
     //! ROS node handle.
     ros::NodeHandle& m_node_handle;

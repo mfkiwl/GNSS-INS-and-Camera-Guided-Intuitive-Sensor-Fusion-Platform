@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import dynamic_reconfigure.encoding
 import rospy
 
@@ -21,13 +21,14 @@ class ExtrinsicsPublihser:
             self.handleTf(self.config)
             rate.sleep()
 
-    def handleTf(self, config: dynamic_reconfigure.encoding.Config):
+    # def handleTf(self, config: dynamic_reconfigure.encoding.Config):
+    def handleTf(self, config):
         br = tf2_ros.StaticTransformBroadcaster()
         t = geometry_msgs.msg.TransformStamped()
 
         t.header.stamp = rospy.Time.now()
-        t.header.frame_id = "velodyne"
-        t.child_frame_id = "camera"
+        t.header.frame_id = "velodyne_first"
+        t.child_frame_id = "velodyne_second"
         t.transform.translation.x = config["x"]
         t.transform.translation.y = config["y"]
         t.transform.translation.z = config["z"]
@@ -39,7 +40,8 @@ class ExtrinsicsPublihser:
 
         br.sendTransform(t)
 
-    def callback(self, config: dynamic_reconfigure.encoding.Config, level):
+    # def callback(self, config: dynamic_reconfigure.encoding.Config, level):
+    def callback(self, config, level):
         print("---")
         rospy.loginfo("x: {x}".format(**config))
         rospy.loginfo("y: {y}".format(**config))

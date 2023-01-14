@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 
 from collections import Counter
 
@@ -54,7 +54,7 @@ def ProjectedPointsCallback(clouds_input):
             if label == biggest_cluster_label:
                 biggest_cluster.append(points_filtered[index])
 
-        print("Size of biggest cluster: ", len(biggest_cluster))
+        print ("Size of biggest cluster: ", len(biggest_cluster))
 
         sum_x = 0
         sum_y = 0
@@ -71,7 +71,7 @@ def ProjectedPointsCallback(clouds_input):
         marker = Marker()
         marker.header.frame_id = "velodyne"
         #marker.header.stamp = rospy.get_time()
-        marker.id = cloud_with_id.id
+        marker.id = 0
         marker.type = marker.SPHERE
         marker.action = marker.ADD
         marker.pose.position.x = mean_x

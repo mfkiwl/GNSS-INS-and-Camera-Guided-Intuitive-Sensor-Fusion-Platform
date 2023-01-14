@@ -14,30 +14,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # add_definitions(-Wall -Werror)
 
 set(OpenCV_DIR /usr/lib/x86_64-linux-gnu/cmake/opencv4)
-set(Open3D_DIR /usr/local/lib/cmake/Open3D/)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-        pcl_conversions
-        pcl_ros
-        roscpp
-        rospy
-        sensor_msgs
-        std_msgs
-        darknet_ros_msgs
-        OpenCV REQUIRED
-        cv_bridge
-        message_generation
-        actionlib_msgs
-        image_transport
-        visualization_msgs
-        actionlib
-        dynamic_reconfigure
-        tf2
-        tf2_ros
-        )
+  pcl_conversions
+  pcl_ros
+  roscpp
+  rospy
+  sensor_msgs
+  std_msgs
+  darknet_ros_msgs
+  OpenCV
+  cv_bridge
+  message_generation
+  actionlib_msgs
+  image_transport
+  # mst_camera_driver
+  visualization_msgs
+  actionlib
+  yolov5_ros_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -74,11 +72,11 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate messages in the 'msg' folder
 add_message_files(
-        FILES
-        PointCloud2WithId.msg
-        ArrayOfPointCloud2s.msg
-        #   Message1.msg
-        #   Message2.msg
+  FILES
+  PointCloud2WithId.msg
+  ArrayOfPointCloud2s.msg
+#   Message1.msg
+#   Message2.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -96,20 +94,20 @@ add_message_files(
 # )
 
 add_action_files(
-        DIRECTORY action
-        FILES ProjectedCloud.action
-        Park.action
-        SignTracker.action
-        DeleteSign.action
+  DIRECTORY action
+  FILES ProjectedCloud.action
+  Park.action
+  SignTracker.action
+  DeleteSign.action
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-        DEPENDENCIES
-        std_msgs
-        sensor_msgs
-        visualization_msgs
-        actionlib_msgs
+  DEPENDENCIES
+  std_msgs
+  sensor_msgs
+  visualization_msgs
+  actionlib_msgs
 )
 
 ################################################
@@ -127,10 +125,10 @@ generate_messages(
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-generate_dynamic_reconfigure_options(
-        config/playground_params.cfg
-        config/extrinsics.cfg
-)
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
 
 ###################################
 ## catkin specific configuration ##
@@ -142,12 +140,12 @@ generate_dynamic_reconfigure_options(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-        INCLUDE_DIRS include
-        LIBRARIES utils_core lidar_tracker_core
-        #  CATKIN_DEPENDS pcl_conversions pcl_ros roscpp rospy sensor_msgs std_msgs
-        CATKIN_DEPENDS message_runtime
-        actionlib_msgs
-        #  DEPENDS system_lib
+   INCLUDE_DIRS include
+#  LIBRARIES mst_object_localization
+#  CATKIN_DEPENDS pcl_conversions pcl_ros roscpp rospy sensor_msgs std_msgs
+  CATKIN_DEPENDS message_runtime
+  actionlib_msgs
+#  DEPENDS system_lib
 )
 
 ###########
@@ -157,9 +155,9 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-        include
-        ${catkin_INCLUDE_DIRS}
-        ${OpenCV_INCLUDE_DIRS}
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -180,183 +178,212 @@ include_directories(
 ### CloudPainter
 ## Declare a cpp library
 add_library(cloud_painter_core
-        src/CloudPainter/CloudPainter.cpp
-        )
+   src/CloudPainter/CloudPainter.cpp
+)
 target_compile_features(cloud_painter_core INTERFACE cxx_std_11)
 
 ## Declare cpp executables
 add_executable(cloud_painter
-        src/CloudPainter/cloud_painter_node.cpp
-        src/CloudPainter/CloudPainter.cpp
-        )
+  src/CloudPainter/cloud_painter_node.cpp
+  src/CloudPainter/CloudPainter.cpp
+)
 target_compile_features(cloud_painter INTERFACE cxx_std_11)
 
 ## Add dependencies to exported targets, like ROS msgs or srvs
 add_dependencies(cloud_painter_core
-        ${catkin_EXPORTED_TARGETS}
-        )
+  ${catkin_EXPORTED_TARGETS}
+)
 
 add_dependencies(cloud_painter
-        ${catkin_EXPORTED_TARGETS}
-        )
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Specify libraries to link executable targets against
 target_link_libraries(cloud_painter_core
-        ${catkin_LIBRARIES}
-        )
+  ${catkin_LIBRARIES}
+)
 
 target_link_libraries(cloud_painter
-        cloud_painter_core
-        ${catkin_LIBRARIES}
-        )
+  cloud_painter_core
+  ${catkin_LIBRARIES}
+)
+
 
 
 ### CloudFilter
 ## Declare a cpp library
-#add_library(cloud_filter_core
-#   src/CloudFilter.cpp
-#)
-#target_compile_features(cloud_filter_core INTERFACE cxx_std_11)
-#
-### Declare cpp executables
-#add_executable(cloud_filter
-#  src/cloud_filter_node.cpp
-#  src/CloudFilter.cpp
-#)
-#target_compile_features(cloud_filter INTERFACE cxx_std_11)
-#
-### Add dependencies to exported targets, like ROS msgs or srvs
-#add_dependencies(cloud_filter_core
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-#add_dependencies(cloud_filter
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-### Specify libraries to link executable targets against
-#target_link_libraries(cloud_filter_core
-#  ${catkin_LIBRARIES}
-#)
-#
-#target_link_libraries(cloud_filter
-#  cloud_filter_core
-#  ${catkin_LIBRARIES}
-#)
+add_library(cloud_filter_core
+   src/CloudFilter.cpp
+)
+target_compile_features(cloud_filter_core INTERFACE cxx_std_11)
+
+## Declare cpp executables
+add_executable(cloud_filter
+  src/cloud_filter_node.cpp
+  src/CloudFilter.cpp
+)
+target_compile_features(cloud_filter INTERFACE cxx_std_11)
+
+## Add dependencies to exported targets, like ROS msgs or srvs
+add_dependencies(cloud_filter_core
+  ${catkin_EXPORTED_TARGETS}
+)
+
+add_dependencies(cloud_filter
+  ${catkin_EXPORTED_TARGETS}
+)
+
+## Specify libraries to link executable targets against
+target_link_libraries(cloud_filter_core
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(cloud_filter
+  cloud_filter_core
+  ${catkin_LIBRARIES}
+)
+
+
+
+### Visualize
+## Declare cpp executables
+# add_executable(visualize
+#   src/visualize_node.cpp
+# )
+# target_compile_features(visualize INTERFACE cxx_std_11)
+
+# add_dependencies(visualize
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# target_link_libraries(visualize
+#   ${catkin_LIBRARIES}
+# )
+
+
 
 ### ParkTracker
 ## Declare a cpp library
-#add_library(park_tracker_core
+# add_library(park_tracker_core
+#    src/ParkTracker.cpp
+# )
+# target_compile_features(park_tracker_core INTERFACE cxx_std_11)
+
+# ## Declare cpp executables
+# add_executable(park_tracker
+#   src/park_tracker_node.cpp
 #   src/ParkTracker.cpp
-#)
-#target_compile_features(park_tracker_core INTERFACE cxx_std_11)
-#
-### Declare cpp executables
-#add_executable(park_tracker
-#  src/park_tracker_node.cpp
-#  src/ParkTracker.cpp
-#)
-#target_compile_features(park_tracker INTERFACE cxx_std_11)
-#
-### Add dependencies to exported targets, like ROS msgs or srvs
-#add_dependencies(park_tracker_core
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-#add_dependencies(park_tracker
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-### Specify libraries to link executable targets against
-#target_link_libraries(park_tracker_core
-#  ${catkin_LIBRARIES}
-#)
-#
-#target_link_libraries(park_tracker
-#  park_tracker_core
-#  ${catkin_LIBRARIES}
-#)
+# )
+# target_compile_features(park_tracker INTERFACE cxx_std_11)
+
+# ## Add dependencies to exported targets, like ROS msgs or srvs
+# add_dependencies(park_tracker_core
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# add_dependencies(park_tracker
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# ## Specify libraries to link executable targets against
+# target_link_libraries(park_tracker_core
+#   ${catkin_LIBRARIES}
+# )
+
+# target_link_libraries(park_tracker
+#   park_tracker_core
+#   ${catkin_LIBRARIES}
+# )
+
+
+
+
+
+### LidarTracker
+## Declare a cpp library
+# add_library(lidar_tracker_core
+#    src/LidarTracker.cpp
+# )
+# target_compile_features(lidar_tracker_core INTERFACE cxx_std_11)
+
+# ## Declare cpp executables
+# add_executable(lidar_tracker
+#   src/lidar_tracker_node.cpp
+#   src/LidarTracker.cpp
+# )
+# target_compile_features(lidar_tracker INTERFACE cxx_std_11)
+
+# ## Add dependencies to exported targets, like ROS msgs or srvs
+# add_dependencies(lidar_tracker_core
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# add_dependencies(lidar_tracker
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# ## Specify libraries to link executable targets against
+# target_link_libraries(lidar_tracker_core
+#   ${catkin_LIBRARIES}
+# )
+
+# target_link_libraries(lidar_tracker
+#   lidar_tracker_core
+#   ${catkin_LIBRARIES}
+# )
 
 
 
 
 ### DarknetRepublish
 ## Declare a cpp library
-#add_library(darknet_republish_core
+# add_library(darknet_republish_core
+#    src/DarknetRepublish.cpp
+# )
+# target_compile_features(darknet_republish_core INTERFACE cxx_std_11)
+
+# ## Declare cpp executables
+# add_executable(darknet_republish
+#   src/darknet_republish_node.cpp
 #   src/DarknetRepublish.cpp
-#)
-#target_compile_features(darknet_republish_core INTERFACE cxx_std_11)
-#
-### Declare cpp executables
-#add_executable(darknet_republish
-#  src/darknet_republish_node.cpp
-#  src/DarknetRepublish.cpp
-#)
-#target_compile_features(darknet_republish INTERFACE cxx_std_11)
-#
-### Add dependencies to exported targets, like ROS msgs or srvs
-#add_dependencies(darknet_republish_core
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-#add_dependencies(darknet_republish
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-### Specify libraries to link executable targets against
-#target_link_libraries(darknet_republish_core
-#  ${catkin_LIBRARIES}
-#)
-#
-#target_link_libraries(darknet_republish
-#  darknet_republish_core
-#  ${catkin_LIBRARIES}
-#)
+# )
+# target_compile_features(darknet_republish INTERFACE cxx_std_11)
+
+# ## Add dependencies to exported targets, like ROS msgs or srvs
+# add_dependencies(darknet_republish_core
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# add_dependencies(darknet_republish
+#   ${catkin_EXPORTED_TARGETS}
+# )
+
+# ## Specify libraries to link executable targets against
+# target_link_libraries(darknet_republish_core
+#   ${catkin_LIBRARIES}
+# )
+
+# target_link_libraries(darknet_republish
+#   darknet_republish_core
+#   ${catkin_LIBRARIES}
+# )
+
 
 
 ### DarknetRepublish
 ## Declare cpp executables
-#add_executable(cloud_filter_mf
-#  src/cloud_filter_node_mf.cpp
-#)
-#target_compile_features(cloud_filter_mf INTERFACE cxx_std_11)
-#
-#add_dependencies(cloud_filter_mf
-#  ${catkin_EXPORTED_TARGETS}
-#)
-#
-#target_link_libraries(cloud_filter_mf
-#  ${catkin_LIBRARIES}
-#)
+# add_executable(cloud_filter_mf
+#   src/cloud_filter_node_mf.cpp
+# )
+# target_compile_features(cloud_filter_mf INTERFACE cxx_std_11)
 
+# add_dependencies(cloud_filter_mf
+#   ${catkin_EXPORTED_TARGETS}
+# )
 
-
-
-
-
-# ## Declare a cpp library
-# add_library(pointcloud_ros_core
-#         src/PointCloudRos.cpp
-#         )
-# target_compile_features(pointcloud_ros_core INTERFACE cxx_std_11)
-
-# ## Add dependencies to exported targets, like ROS msgs or srvs
-# add_dependencies(pointcloud_ros_core
-#         ${catkin_EXPORTED_TARGETS}
-#         )
-
-# ## Specify libraries to link executable targets against
-# target_link_libraries(pointcloud_ros_core
-#         ${catkin_LIBRARIES}
-#         Open3D::Open3D
-#         )
-
-
-
-
-
-
-        
+# target_link_libraries(cloud_filter_mf
+#   ${catkin_LIBRARIES}
+# )
 
 
 
@@ -429,3 +456,9 @@ target_link_libraries(cloud_painter
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+# add_library(kdtreeLibrary src/kdtree.cpp)
+
+# add_executable(kdtree_main src/kdtree_main.cpp)
+# add_dependencies(kdtree_main ${catkin_EXPORTED_TARGETS})
+# target_link_libraries(kdtree_main kdtreeLibrary ${catkin_LIBRARIES})

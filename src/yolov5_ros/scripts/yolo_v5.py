@@ -19,7 +19,7 @@ class Yolo_Dect:
 
         weight_path = rospy.get_param('~weight_path', '')
         image_topic = rospy.get_param(
-            '~image_topic', '/test_images/images')
+            '~image_topic', '/camera_undistorted')
         pub_topic = rospy.get_param('~pub_topic', '/yolov5/BoundingBoxes')
         self.camera_frame = rospy.get_param('~camera_frame', '')
         conf = rospy.get_param('~conf', '0.5')
@@ -29,7 +29,7 @@ class Yolo_Dect:
                                     path=weight_path, source='local')
 
         # which device will be used
-        if (rospy.get_param('/use_cpu', 'false')):
+        if (rospy.get_param('/use_cpu', 'true')):
             self.model.cpu()
         else:
             self.model.cuda()
@@ -59,6 +59,7 @@ class Yolo_Dect:
             rospy.sleep(2)
 
     def image_callback(self, image):
+        print("callback")
         self.boundingBoxes = BoundingBoxes()
         self.boundingBoxes.header = image.header
         self.boundingBoxes.image_header = image.header
@@ -112,8 +113,9 @@ class Yolo_Dect:
 
             self.boundingBoxes.bounding_boxes.append(boundingBox)
             self.position_pub.publish(self.boundingBoxes)
+            print(self.boundingBoxes)
         self.publish_image(img, height, width)
-        cv2.imshow('YOLOv5', img)
+        # cv2.imshow('YOLOv5', img)
 
     def publish_image(self, imgdata, height, width):
         image_temp = Image()

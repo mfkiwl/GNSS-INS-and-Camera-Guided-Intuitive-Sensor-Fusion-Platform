@@ -1,0 +1,15 @@
+camera_matrix: 
+ rows: 3
+ cols: 3
+ data: [ 638.804827,   0.000000  ,   580.664452,
+         0.000000  ,   638.590845,   375.139807,
+         0.000000  ,   0.000000  ,   1.000000   ]
+
+distortion_coefficients: 
+ rows: 1
+ cols: 5
+ data: [-0.294977, 0.064122, -0.000527, -0.000041, 0.000000]
+
+
+camera_topic: "/spinnaker_ros_driver_node/cam_fm_01/image_raw"
+publisher_topic: "spinnaker_undistorted"

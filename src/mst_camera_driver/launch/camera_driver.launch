@@ -1,0 +1,16 @@
+<launch>
+
+    <!-- <node pkg="mst_camera_driver" type="camera_driver" name="camera_driver_1" output="screen">
+        <rosparam command="load" file="$(find mst_camera_driver)/config/spinnaker.yaml" />
+    </node> -->
+    <node name="republish_calib"
+              type="republish"
+              pkg="image_transport"
+              output="screen"
+              args="compressed in:=/simulator/camera_node/image raw out:=/camera" />
+
+    <node pkg="mst_camera_driver" type="camera_driver" name="camera_driver_2" output="screen">
+        <rosparam command="load" file="$(find mst_camera_driver)/config/cv_camera.yaml" />
+    </node>
+
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+
+    <node pkg="mst_camera_driver" type="camera_driver" name="camera_driver" output="screen">
+        <rosparam command="load" file="$(find mst_camera_driver)/config/default_airsim.yaml" />
+    </node>
+
+</launch>

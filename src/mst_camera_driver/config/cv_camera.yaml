@@ -1,0 +1,14 @@
+camera_matrix: 
+ rows: 3
+ cols: 3
+ data: [623.538301916206, 0.0, 576.0, 0.0, 623.538301916206, 360.0, 0.0, 0.0, 1.0]
+
+distortion_coefficients: 
+ rows: 0
+ cols: 0
+#  data: [-0.247564, 0.059788, -0.000330, 0.000602, 0.000000]
+ data: []
+
+camera_topic: "/camera"
+frame_id: "camera"
+publisher_topic: "/camera_undistorted"

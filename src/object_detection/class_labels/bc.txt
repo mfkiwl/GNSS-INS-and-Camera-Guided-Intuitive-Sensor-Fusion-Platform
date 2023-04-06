@@ -1,0 +1,17 @@
+girilmez
+tasit_trafigine_kapali
+duz_veya_sola
+duz_veya_saga
+yalnizca_sola
+20_hiz_limiti_sonu
+30_limit
+20_limit
+yalnizca_saga
+saga_donulmez
+sola_donulmez
+dur
+park_yapilmaz
+park
+durak
+traffic_light
+doner_kavsakengelli_park

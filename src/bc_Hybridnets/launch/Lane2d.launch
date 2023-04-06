@@ -1,0 +1,51 @@
+<launch>
+
+    <arg name="yolop_weight" default="$(find bc_lane_detection)/weights/yolop/simulation-240-epoch/epoch-240.pth" />
+    <arg name="lanenet_weight" default="$(find bc_lane_detection)/weights/lanenet/simulation-100-epoch/best_model.pth" />
+
+    <node pkg="bc_lane_detection" type="viz_lane2d" name="viz_lane2d" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/viz.yml" />
+    </node>
+
+    <node pkg="bc_lane_detection" type="instance_mask" name="instance_mask" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/instance_mask.yml" />
+    </node>
+
+    <node pkg="bc_lane_detection" type="lanenet_pub_instance_image.py" name="lanenet_pub_instance_image" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/lanenet.yml" />
+        <param name="lanenet_weight" value="$(arg lanenet_weight)" />
+        <param name="pub_topic" value="/instance_image" />
+    </node>
+
+    <!-- <node pkg="bc_lane_detection" type="lanenet_pub_instance_pc2.py" name="lanenet_pub_instance_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/lanenet.yml" />
+        <param name="lanenet_weight" value="$(arg lanenet_weight)" />
+        <param name="pub_topic" value="/lane2d" />
+    </node> -->
+
+    <!-- <node pkg="bc_lane_detection" type="lanenet_pub_binary_pc2.py" name="lanenet_pub_binary_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/lanenet.yml" />
+        <param name="lanenet_weight" value="$(arg lanenet_weight)" />
+        <param name="pub_topic" value="/lane2d" />
+    </node> -->
+
+    <!-- <node pkg="bc_lane_detection" type="yolop_da_pub_pc2.py" name="lanenet_pub_instance_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/yolop.yml" />
+        <param name="lanenet_weight" value="$(arg yolop_weight)" />
+        <param name="pub_topic" value="/lane2d" />
+    </node> -->
+
+    <!-- <node pkg="bc_lane_detection" type="yolop_ll_pub_pc2.py" name="lanenet_pub_instance_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/yolop.yml" />
+        <param name="lanenet_weight" value="$(arg yolop_weight)" />
+        <param name="pub_topic" value="/lane2d" />
+    </node> -->
+
+    <!-- Convert CompressedImage to RawImage -->
+    <node name="republish"
+          type="republish"
+          pkg="image_transport"
+          output="screen"
+          args="compressed in:=/camera raw out:=/camera" />
+
+</launch>

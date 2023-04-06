@@ -1,0 +1,8 @@
+model_type: "ENet"
+width: 512
+height: 256
+
+# image_topic: "/simulator/camera_node/image"
+# image_topic: "/spinnaker_ros_driver_node/cam_fm_01/image_raw"
+#image_topic: "/camera_driver/image_undistorted"
+image_topic: "/camera"

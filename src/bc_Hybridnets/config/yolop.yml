@@ -1,0 +1,10 @@
+img_size : 640
+conf_thres : 0.25
+iou_thres : 0.45
+device : '0'
+save_dir : "inference/output"
+
+# image_topic: "/simulator/camera_node/image"
+# image_topic: "/spinnaker_ros_driver_node/cam_fm_01/image_raw"
+#image_topic: "/camera_driver/image_undistorted"
+image_topic: "/camera"

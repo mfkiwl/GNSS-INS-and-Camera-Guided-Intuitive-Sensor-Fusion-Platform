@@ -1,0 +1,5 @@
+width: 640
+height: 384
+image_topic: "/camera"
+pub_topic: "/pub_drivable_pc2"
+weight: "/home/sevo/Lane/src/hybridnets.pth"

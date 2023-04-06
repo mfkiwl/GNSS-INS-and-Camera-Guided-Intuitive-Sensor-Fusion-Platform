@@ -1,0 +1,12 @@
+<launch>
+
+    <node pkg="bc_lane_detection" type="yolopv2.py" name="yolopv2" output="screen" >
+            <rosparam command="load" file="$(find bc_lane_detection)/config/yolopv2.yml" />
+    </node>
+    <!-- Convert CompressedImage to RawImage -->
+    <!-- <node name="republish"
+              type="republish"
+              pkg="image_transport"
+              output="screen"
+              args="compressed in:=/spinnaker_ros_driver_node/cam_fm_01/image_raw raw out:=/spinnaker_ros_driver_node/cam_fm_01/image_raw" /> -->
+</launch>

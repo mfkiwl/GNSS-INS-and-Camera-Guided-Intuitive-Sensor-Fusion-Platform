@@ -1,0 +1,25 @@
+<launch>
+
+    <!-- <node pkg="bc_lane_detection" type="hybridnets_ll.py" name="hybridnets_ll" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/hybridnets.yml" />
+    </node> -->
+
+    <!-- <node pkg="bc_lane_detection" type="hybridnets_da.py" name="hybridnets_da" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/hybridnets.yml" />
+    </node> -->
+
+    <node pkg="bc_lane_detection" type="hybridnets_da_pc2.py" name="hybridnets_da_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/hybridnets.yml" />
+    </node>
+
+    <!-- <node pkg="bc_lane_detection" type="hybridnets_ll_pc2.py" name="hybridnets_ll_pc2" output="screen" >
+        <rosparam command="load" file="$(find bc_lane_detection)/config/hybridnets.yml" />
+    </node> -->
+<!-- 
+    <node name="republish"
+          type="republish"
+          pkg="image_transport"
+          output="screen"
+          args="compressed in:=/simulator/camera_node/image/compressed raw out:=/camera" /> -->
+
+</launch>

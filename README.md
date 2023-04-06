@@ -41,7 +41,7 @@ You have to install PyTorch, PCL and OpenCV libraries. For the rest of the depen
 `roslaunch livox_ros_driver livox_lidar,rviz.launch` 
 
 
-## Running State Estimation Module##
+## Running State Estimation Module ##
 
 `roslaunch vehicle_state_estimator vehicle_state_estimator.launch` 
 

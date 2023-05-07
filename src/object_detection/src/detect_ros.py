@@ -17,7 +17,8 @@ import rospy
 from vision_msgs.msg import Detection2DArray, Detection2D, BoundingBox2D
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-
+import pdb
+import cv2
 
 def parse_classes_file(path):
     classes = []
@@ -48,7 +49,7 @@ def rescale(ori_shape: Tuple[int, int], boxes: Union[torch.Tensor, np.ndarray],
 
 class YoloV7:
     def __init__(self, weights, conf_thresh: float = 0.5, iou_thresh: float = 0.45,
-                 device: str = "cuda"):
+                 device: str = "cpu"):
         self.conf_thresh = conf_thresh
         self.iou_thresh = iou_thresh
         self.device = device
@@ -75,7 +76,7 @@ class YoloV7:
 class Yolov7Publisher:
     def __init__(self, img_topic: str, weights: str, conf_thresh: float = 0.5,
                  iou_thresh: float = 0.45, pub_topic: str = "yolov7_detections",
-                 device: str = "cuda",
+                 device: str = "cpu",
                  img_size: Union[Tuple[int, int], None] = (640, 640),
                  queue_size: int = 1, visualize: bool = False,
                  class_labels: Union[List, None] = None):
@@ -140,13 +141,22 @@ class Yolov7Publisher:
 
         # conversion to torch tensor (copied from original yolov7 repo)
         img = np_img_resized.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
+        # cv2.imshow(img,'1')
         img = torch.from_numpy(np.ascontiguousarray(img))
+        # cv2.imshow(img,'2')
         img = img.float()  # uint8 to fp16/32
+        # cv2.imshow(img,'3')
+
         img /= 255  # 0 - 255 to 0.0 - 1.
+        # cv2.imshow(img,'4')
+    
         img = img.to(self.device)
+        # cv2.imshow(img,'5')
+        # pdb.set_trace()
 
         # inference & rescaling the output to original img size
         detections = self.model.inference(img)
+        print(detections)
         detections[:, :4] = rescale(
             [h_scaled, w_scaled], detections[:, :4], [h_orig, w_orig])
         detections[:, :4] = detections[:, :4].round()
@@ -162,9 +172,12 @@ class Yolov7Publisher:
             classes = [int(c) for c in detections[:, 5].tolist()]
             vis_img = draw_detections(np_img_orig, bboxes, classes,
                                       self.class_labels)
+            print("------------",classes)
             vis_msg = self.bridge.cv2_to_imgmsg(vis_img)
             self.visualization_publisher.publish(vis_msg)
-        print(self.class_labels)
+        # print(self.class_labels)
+        vis='vis_img'
+        cv2.imshow(vis,vis_img)
 
 
 if __name__ == "__main__":
@@ -172,7 +185,7 @@ if __name__ == "__main__":
 
     ns = rospy.get_name() + "/"
 
-    weights_path = rospy.get_param(ns + "weights_path")
+    weights_path = rospy.get_param(ns+"weights_path")
     classes_path = rospy.get_param(ns + "classes_path")
     img_topic = rospy.get_param(ns + "img_topic")
     out_topic = rospy.get_param(ns + "out_topic")
@@ -182,7 +195,7 @@ if __name__ == "__main__":
     img_size = rospy.get_param(ns + "img_size")
     visualize = rospy.get_param(ns + "visualize")
     device = rospy.get_param(ns + "device")
-
+    print(weights_path)
     # some sanity checks
     if not os.path.isfile(weights_path):
         raise FileExistsError(f"Weights not found ({weights_path}).")

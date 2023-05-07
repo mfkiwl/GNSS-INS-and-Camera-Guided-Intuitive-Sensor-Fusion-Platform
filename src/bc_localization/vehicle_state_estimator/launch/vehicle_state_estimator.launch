@@ -1,0 +1,5 @@
+<launch>
+<node pkg="vehicle_state_estimator" type="vehicle_state_estimator_node" name="vehicle_state_estimator_node" output="screen">
+    <rosparam command="load" file="$(find vehicle_state_estimator)/params/parameters.yaml"/>
+</node>
+</launch>

@@ -1,0 +1,2 @@
+time radarTime
+ContiRadar[] radarArray

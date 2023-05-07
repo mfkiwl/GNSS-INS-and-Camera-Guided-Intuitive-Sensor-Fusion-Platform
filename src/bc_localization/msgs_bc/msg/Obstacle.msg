@@ -1,0 +1,2 @@
+msgs_bc/ObstacleKinematics obstacle_kinematics
+msgs_bc/ObstacleProperties obstacle_properties

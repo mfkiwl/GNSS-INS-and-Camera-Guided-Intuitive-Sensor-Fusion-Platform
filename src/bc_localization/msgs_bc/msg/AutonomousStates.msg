@@ -1,0 +1,9 @@
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+std_msgs/Bool lka_status
+std_msgs/Int8 acc_status
+std_msgs/Int8 acc_mode
+std_msgs/Int8 set_speed
+std_msgs/Int8 dm_mode

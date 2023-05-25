@@ -14,9 +14,11 @@
 #include "sensor_msgs/NavSatFix.h"
 #include "std_msgs/Float64.h"
 #include "std_msgs/Float32.h"
+#include "geometry_msgs/TwistStamped.h"
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
-
+#include "sbg_driver/SbgGpsPos.h"
+#include "sbg_driver/SbgImuData.h"
 #include "InputAdaptions.h"
 #include "VehStEstimn2.h"
 #include "tf/tf.h"
@@ -33,7 +35,6 @@ std_msgs::Float64 outputMsg1;
 ros::Subscriber VehicleSpeedSub;
 ros::Subscriber VehicleGPSSub;
 ros::Subscriber VehicleIMUSub;
-
 ros::Publisher pubEKF;
 ros::Publisher pubPURE;
 ros::Publisher pubPredicted;
@@ -51,10 +52,10 @@ void vehiclespeedCallback(const std_msgs::Float32::ConstPtr &submsg)
   // outputMsg1.data = VehStEstimn_In.CC_VVehFromCan;
 }*/
 
-void vehiclespeedCallback(const nav_msgs::OdometryConstPtr &submsg)
+void vehiclespeedCallback(const geometry_msgs::TwistStamped::ConstPtr &submsg)
 {
   // VehStEstimn_In.CC_VVehFromCan = submsg->wheelSpeed[0].data;
-  VehStEstimn_In.CC_VVehFromCan = submsg->twist.twist.linear.x;
+  VehStEstimn_In.CC_VVehFromCan = submsg->twist.linear.x;
 }
 
 /*
@@ -66,20 +67,31 @@ void vehicleIMUCallback(const sensor_msgs::Imu::ConstPtr &submsg)
   VehStEstimn_In.CC_AVehIMULat = submsg->linear_acceleration.y; // check Lateral acc Y-axis???
 } */
 
-void vehicleIMUCallback(const sensor_msgs::ImuConstPtr &submsg)
+void vehicleIMUCallback(const sbg_driver::SbgImuData::ConstPtr &submsg)
 {
   // tepe cek
-  VehStEstimn_In.CC_RateYawIMU = submsg->angular_velocity.z;    // check yaw rate is around Z-axis???
-  VehStEstimn_In.CC_AVehIMULgt = submsg->linear_acceleration.x; // check longitudinal acc X-axis???
-  VehStEstimn_In.CC_AVehIMULat = submsg->linear_acceleration.y; // check Lateral acc Y-axis???
+  VehStEstimn_In.CC_RateYawIMU = submsg->gyro.z;    
+  VehStEstimn_In.CC_AVehIMULgt = submsg->accel.y; 
+  VehStEstimn_In.CC_AVehIMULat = submsg->accel.x; 
 }
 
-void vehicleGPSCallback(const sensor_msgs::NavSatFix::ConstPtr &submsg)
+void vehicleGPSCallback(const sbg_driver::SbgGpsPos::ConstPtr &submsg)
 {
   VehStEstimn_In.CC_PosnGpsLati = submsg->latitude;
   VehStEstimn_In.CC_PosnGpsLgt = submsg->longitude;
   VehStEstimn_In.CC_PosnGpsAlti = submsg->altitude;
+  
+
 }
+// void vehicleGPSCallback(const geometry_msgs::Vector3::ConstPtr &submsg)
+// {
+//   std::cout<<"*****************GPS*****************/n";
+//   VehStEstimn_In.CC_PosnGpsLati = submsg->x;
+//   VehStEstimn_In.CC_PosnGpsLgt = submsg->y;
+//   VehStEstimn_In.CC_PosnGpsAlti = submsg->z;
+  
+
+// }
 
 template <class T>
 bool getParameter(const std::string &param, T &var, ros::NodeHandle &nh_)
@@ -115,16 +127,15 @@ int main(int argc, char **argv)
   /* VehicleSpeedSub = n.subscribe<std_msgs::Float32>(
       vehicle_internal_state_topic, 10, vehiclespeedCallback,
       ros::TransportHints().tcpNoDelay(true)); */
-  VehicleSpeedSub = n.subscribe<nav_msgs::Odometry>(
+  VehicleSpeedSub = n.subscribe<geometry_msgs::TwistStamped>(
       vehicle_internal_state_topic, 1, vehiclespeedCallback,
       ros::TransportHints().tcpNoDelay(true));
-  VehicleGPSSub = n.subscribe<sensor_msgs::NavSatFix>(gps_topic, 10, vehicleGPSCallback,
+  VehicleGPSSub = n.subscribe<sbg_driver::SbgGpsPos>(gps_topic, 10, vehicleGPSCallback,
                                                       ros::TransportHints().tcpNoDelay(true));
-  VehicleIMUSub = n.subscribe<sensor_msgs::Imu>(imu_topic, 1, vehicleIMUCallback,
+  VehicleIMUSub = n.subscribe<sbg_driver::SbgImuData>(imu_topic, 1, vehicleIMUCallback,
                                               ros::TransportHints().tcpNoDelay(true));
   /* VehicleIMUSub = n.subscribe<sensor_msgs::Imu>(imu_topic, 10, vehicleIMUCallback,
                                                 ros::TransportHints().tcpNoDelay(true));*/
-
   pubEKF = n.advertise<msgs_bc::ObstacleKinematics>("EKF_Output", 10);
   pubPredicted = n.advertise<msgs_bc::ObstacleKinematics>("Predicted_Output", 10);
   pubPURE = n.advertise<msgs_bc::ObstacleKinematics>("Pure_Output", 10);
@@ -184,7 +195,7 @@ int main(int argc, char **argv)
     YawRate = VehStEstimn2_In.isNanCheck(StUpdOut.coeff(4, 0));
     a_lgt = VehStEstimn2_In.isNanCheck(StUpdOut.coeff(5, 0));
 
-    std::cout << "East: " << East << ", North: " << North << ", Yaw: " << Yaw << ", Vel: " << Vel << ", YawRate:" << YawRate << ", a_lgt: " << a_lgt << std::endl;
+    //std::cout << "East: " << East << ", North: " << North << ", Yaw: " << Yaw << ", Vel: " << Vel << ", YawRate:" << YawRate << ", a_lgt: " << a_lgt << std::endl;
 
     KalmanMsg.header.stamp = ros::Time::now();
     KalmanMsg.pose.position.x = East;

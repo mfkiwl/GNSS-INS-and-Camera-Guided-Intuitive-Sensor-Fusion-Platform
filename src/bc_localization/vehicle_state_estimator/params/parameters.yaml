@@ -1,11 +1,11 @@
 #kia
 vehicle_internal_state_topic: "/imu/velocity"
-gps_topic: "/imu/nav_sat_fix" #"/ublox_gps/fix"
-imu_topic: "/imu/data"
+gps_topic: "/sbg/gps_pos" #"/ublox_gps/fix"
+imu_topic: "/sbg/imu_data"
 publish_topic: "VehStEstimatorDataNew"
 
 #carla
-#vehicle_internal_state_topic: "/carla/ego_vehicle/speedometer"
-#gps_topic: "/ublox_gps/fix"
-#imu_topic: /carla/ego_vehicle/imu
-#publish_topic: "VehStEstimatorDataNew"
+# vehicle_internal_state_topic: "/imu/data"
+# gps_topic: "/fix"
+# imu_topic: "/odom"
+# publish_topic: "VehStEstimatorDataNew"
